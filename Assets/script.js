@@ -1,102 +1,61 @@
-
 // Assignment Code
+var generateBtn = document.querySelector("#generate");
 var uppperCaseEl = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var lowerCaseEl = "abcdefghijklmnopqrstuvwxyz";
 var numberEl = "0123456789";
 var symbolEl = "!@#$%^&*()?-=+";
+var passwordArea = document.querySelector("#password");
+generateBtn.addEventListener("click", writePassword);
 
 
-/*
-var getElements = {
- 
-  function uppperCase() {
-    return elements.uppperCase[Math.floor(Math.random() * elements.upperCase.length)];
-  },
-  function lowerCase() {
-    return elements.lowerCase[Math.floor(Math.random() * elements.lowerCase.length)];
-  },
-  function uppperCase() {
-    return elements.number[Math.floor(Math.random() * elements.number.length)];
-  },
-  function uppperCase() {
-    return elements.symbol[Math.floor(Math.random() * elements.symbol.length)];
-  },  
-}
-*/
 
 // Write password to the #password input
 function writePassword() {
   let password = generatePassword();
-
-
-  
+  passwordArea.textContent = password;
 }
 
+//Function too generate the password, returns password
 function generatePassword() {
 
-  var upper = document.getElementById("upperCaseEl").checked;
-  var lower = document.getElementById("lowerCaseEl").checked;
-  var number = document.getElementById("numberEl").checked;
-  var symbol = document.getElementById("symbolEl").checked;
-  /*
-  if (upper + lower + number + symbol === 0) {
-    alert("Please check atleast one box!");
-    return;
-  }
-  */
+  //getting password elements as a bolean
+  var upper = document.getElementById("upperCase").checked;
+  var lower = document.getElementById("lowerCase").checked;
+  var number = document.getElementById("number").checked;
+  var symbol = document.getElementById("symbol").checked;
 
-//creates a string of desired characters to be used in the password
-let elements = "";
-if (upper == true){
-elements = uppperCaseEl + elements;
-}
-if (lower == true){
-elements = lowerCaseEl + elements;
-}
-if (number == true) {
+//creating the password elements based on users choice
+  let elements = "";
+  if (upper == true) {
+    elements = uppperCaseEl + elements;
+  }
+  if (lower == true) {
+    elements = lowerCaseEl + elements;
+  }
+  if (number == true) {
     elements = numberEl + elements;
   }
-if (symbol == true){
-  elements = symbolEl + elements;
-}
+  if (symbol == true) {
+    elements = symbolEl + elements;
+  }
 
-
-  var generateBtn = document.querySelector("#generate");
- generateBtn.addEventListener("click", writePassword);
-
-  password = generatePassword();
- var passwordText = document.querySelector("#password");
-  passwordText.value = password;
-
-  var userlength = document.querySelector("UserLength")
-
-  if (userlength > 128){
+  //getting the user length and setting parameters with alerts
+  var length = document.querySelector("#userLength");
+  var userlength = parseInt(length.value);
+  if (userlength > 128) {
     alert("password is too long");
     return;
   }
   if (userlength < 8) {
-
-  alert("password is too short")
-  return;
+    alert("password is too short");
+    return;
+  }
+  //gets random values of selected material for the users length choice
+var password = "";
+  for (let i = 0; i < userlength; i++) {
+    var transition = Math.floor(Math.random() * elements.length);
+    password += elements[transition];
   }
 
-
-for (let i = 0; i < userlength; i++) {
-  var transition = Math.floor(math.random() * elements.length);
-  password += transition[transition];
+  return password;
 }
-
-return password;
-};
-
-/*
-  while (userlength > password.length) {
-    let keyToAdd = getKey[Math.floor(Math.random() * getKey.length)];
-    let isChecked = document.getElementById(keyToAdd.name).checked;
-    if (isChecked) {
-      password += keyToAdd();
-    }
-  }
-  */
-  // passwordBox.innerHTML = password;
-
